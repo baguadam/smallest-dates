@@ -36,7 +36,8 @@ public:
     int size() const {
         return minHeap.size();
     }
-}; 
+};
+ 
 
 int main(int argc, char* argv[]) {
     // if less or more than 1 argument
@@ -53,36 +54,42 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    // Read the values of N and K
-    int N, K;
-    if (!(file >> N >> K)) {
-        std::cerr << "Failed to read N and K from input files!\n";
+    ProcessableDates processable_dates = ProcessableDates();
+    std::vector<Date> movable_dates;
+
+    auto read_from_file_task = [&file, &processable_dates, &movable_dates]() {
+       // Read the values of N and K
+        int N, K;
+        if (!(file >> N >> K)) {
+            throw std::runtime_error("Failed to read N and K from input file!");
+        }
+
+        // Read and store the first N values in the processableDates data structure:
+        for (int i = 0; i < N; ++i) {
+            int year, month, day;
+            if (!(file >> year >> month >> day)) {
+                throw std::runtime_error("Failed to read the first N dates from input file!");
+            }
+            processable_dates.addDate(Date(year, month, day));
+        }
+
+        // Read and store the remaining K values in the vector:
+        for (int i = 0; i < K; ++i) {
+            int year, month, day;
+            if (!(file >> year >> month >> day)) {
+                throw std::runtime_error("Failed to read the remaining K dates from input file!");
+            }
+            movable_dates.push_back(Date(year, month, day));
+        }
+    };
+
+    try {
+        run_timed_task("File reading: ", read_from_file_task);
+    } catch (const std::runtime_error& e) {
+        std::cerr << "Error: " << e.what() << '\n';
         return -1;
     }
-
-    ProcessableDates processableDates = ProcessableDates();
-    std::vector<Date> movableDates(K);
-
-    // Read and store the first N values in the processableDates data structure:
-    for (int i = 0; i < N; ++i) {
-        int year, month, day;
-        if (!(file >> year >> month >> day)) {
-            std::cerr << "Failed to read date from input file!\n";
-            return -1;
-        }
-        processableDates.addDate(Date(year, month, day));
-    }
-
-    // Read and store the remaining K values in the vector:
-    for (int i = 0; i < K; ++i) {
-        int year, month, day;
-        if (!(file >> year >> month >> day)) {
-            std::cerr << "Failed to read date from input file!\n";
-            return -1;
-        }
-        movableDates[i] = Date(year, month, day);
-    }
-
+    
     file.close();
 
     return 0;
