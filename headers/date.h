@@ -22,6 +22,9 @@ public:
     bool operator==(const Date&) const;
     bool operator!=(const Date&) const;
     bool operator<(const Date&) const;
+    bool operator<=(const Date&) const;
+    bool operator>(const Date&) const;
+    bool operator>=(const Date&) const;
     explicit operator bool() const;
 };
 

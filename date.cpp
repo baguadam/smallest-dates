@@ -98,3 +98,15 @@ bool Date::operator<(const Date& other) const {
     if (month != other.month) return month < other.month;
     return day < other.day;
 }
+
+bool Date::operator<=(const Date& other) const {
+    return (*this < other) || (*this == other);
+}
+
+bool Date::operator>(const Date& other) const {
+    return !(*this <= other);
+}
+
+bool Date::operator>=(const Date& other) const {
+    return !(*this < other);
+}
