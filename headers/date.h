@@ -12,6 +12,7 @@ private:
     bool isDateValid() const;
 
 public:
+    Date() = default;
     Date(int, int, int);
     bool isDateCorrect() const;
 
