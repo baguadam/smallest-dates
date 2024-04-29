@@ -1,7 +1,7 @@
 #include <random>
-#include "date.h"
-#include "bad_date_exception.h"
-#include "terrible_random_exception.h"
+#include "./headers/date.h"
+#include "./headers/bad_date_exception.h"
+#include "./headers/terrible_random_exception.h"
 
 /**************************** 
 *¸FACTORIES AND RANDOM GENERATOR

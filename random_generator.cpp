@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-#include "date.h"
-#include "terrible_random_exception.h"
+#include "./headers/date.h"
+#include "./headers/terrible_random_exception.h"
 
 void printGeneratedNumbers(const int N, const int K, std::ostream& stream) {
     Date min_date(1970, 1, 1);
