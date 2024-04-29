@@ -64,6 +64,10 @@ int main(int argc, char* argv[]) {
             throw std::runtime_error("Failed to read N and K from input file!");
         }
 
+        if (N <= 0 || K <= 0) {
+            throw std::runtime_error("Invalid values for N and/or K");
+        }
+
         // Read and store the first N values in the processableDates data structure:
         for (int i = 0; i < N; ++i) {
             int year, month, day;
