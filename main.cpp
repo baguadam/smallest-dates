@@ -94,7 +94,5 @@ int main(int argc, char* argv[]) {
         return -1;
     }
     
-    file.close();
-
     return 0;
 }
