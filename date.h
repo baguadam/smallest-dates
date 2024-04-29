@@ -10,14 +10,10 @@ private:
     int year, month, day;
 
     bool isDateValid() const;
-    int generateRandomNumber(const int, const int);
 
 public:
     Date(int, int, int);
     bool isDateCorrect() const;
-
-    std::unique_ptr<Date> factory(const int, const int, const int);
-    std::unique_ptr<Date> factory(const Date*, const Date*);
 
     int getYear() const;
     int getMonth() const;
@@ -25,5 +21,9 @@ public:
 
     explicit operator bool() const;
 };
+
+int generateRandomNumber(const int, const int);
+std::unique_ptr<Date> createDate(const int, const int, const int);
+std::unique_ptr<Date> createRandomDateBetween(const Date*, const Date*);
 
 #endif

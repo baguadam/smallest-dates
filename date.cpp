@@ -3,6 +3,46 @@
 #include "bad_date_exception.h"
 #include "terrible_random_exception.h"
 
+/**************************** 
+*¸FACTORIES AND RANDOM GENERATOR
+*****************************/
+int generateRandomNumber(const int min, const int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(min, max);
+    return distribution(gen);
+}
+
+std::unique_ptr<Date> createDate(const int year, const int month, const int day) {
+    std::unique_ptr<Date> date(new Date(year, month, day));
+    if (date && date->isDateCorrect()) {
+        return date;  
+    } else {
+        throw bad_date("Invalid values for the date. The specific year doesn't exist with the year, month and day values! \n");
+    }
+}
+
+std::unique_ptr<Date> createRandomDateBetween(Date const* min, Date const* max) {
+    int try_count = 0;
+    while (try_count < P_TRY) {
+        int random_year = generateRandomNumber(min->getYear(), max->getYear());
+        int random_month = generateRandomNumber(min->getMonth(), max->getMonth());
+        int random_day = generateRandomNumber(min->getDay(), max->getDay());
+
+        try {
+            std::unique_ptr<Date> date(new Date(random_year, random_month, random_day));
+            return date;
+        } catch (const bad_date&) {
+            ++try_count;
+        }
+    }
+
+    throw terrible_random("Couldn't generate proper random date between the provided two dates! \n");
+}
+
+/**************************** 
+*¸DATE CLASS
+*****************************/
 bool Date::isDateValid() const {
     // check if the given date is in the correct range
     if (year < 1800 || year > 2200 || month < 1 || month > 12 || day < 1) {
@@ -29,45 +69,10 @@ bool Date::isDateValid() const {
     }
 }
 
-int Date::generateRandomNumber(const int min, const int max) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distribution(min, max);
-    return distribution(gen);
-}
-
 Date::Date(const int year, const int month, const int day) : year(year), month(month), day(day) {}
 
 bool Date::isDateCorrect() const { 
     return isDateValid();
-}
-
-// FACTORIES
-std::unique_ptr<Date> Date::factory(const int year, const int month, const int day) {
-    std::unique_ptr<Date> date(new Date(year, month, day));
-    if (date && date->isDateCorrect()) {
-        return date;  
-    } else {
-        throw bad_date("Invalid values for the date. The specific year doesn't exist with the year, month and day values! \n");
-    }
-}
-
-std::unique_ptr<Date> Date::factory(const Date* min, const Date* max) {
-    int try_count = 0;
-    while (try_count < P_TRY) {
-        int random_year = generateRandomNumber(min->getYear(), max->getYear());
-        int random_month = generateRandomNumber(min->getMonth(), max->getMonth());
-        int random_day = generateRandomNumber(min->getDay(), max->getDay());
-
-        try {
-            std::unique_ptr<Date> date(new Date(random_year, random_month, random_day));
-            return date;
-        } catch (const bad_date&) {
-            ++try_count;
-        }
-    }
-
-    throw terrible_random("Couldn't generate proper random date between the provided two dates! \n");
 }
     
 // GETTERS
