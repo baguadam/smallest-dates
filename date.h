@@ -19,6 +19,9 @@ public:
     int getMonth() const;
     int getDay() const;
 
+    bool operator==(const Date&);
+    bool operator!=(const Date&);
+    bool operator<(const Date&);
     explicit operator bool() const;
 };
 

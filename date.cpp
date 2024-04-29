@@ -80,8 +80,21 @@ int Date::getYear() const { return year; }
 int Date::getMonth() const { return month; }
 int Date::getDay() const { return day; }  
 
-// CONVERSION OPERATOR
+// Operators
 Date::operator bool() const {
     return isDateCorrect();
 }
 
+bool Date::operator==(const Date& other) {
+    return year == other.year && month == other.month && day == other.day;
+}
+
+bool Date::operator!=(const Date& other) {
+    return !(*this == other);
+}
+
+bool Date::operator<(const Date& other) {
+    if (year != other.year) return year < other.year;
+    if (month != other.month) return month < other.month;
+    return day < other.day;
+}
