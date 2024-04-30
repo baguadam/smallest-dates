@@ -2,7 +2,6 @@
 
 #define CONSUME_H_
 
-#include <iostream>
 #include "date.h"
 
 int compareDates(const Date&, const Date&);
