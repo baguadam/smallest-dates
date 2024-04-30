@@ -24,10 +24,10 @@ int main(int argc, char* argv[]) {
 
     ProcessableDates processable_dates = ProcessableDates();
     std::vector<Date> movable_dates;
+    int N, K;
 
-    auto read_from_file_task = [&file, &processable_dates, &movable_dates]() {
+    auto read_from_file_task = [&file, &processable_dates, &movable_dates, &N, &K]() {
        // Read the values of N and K
-        int N, K;
         if (!(file >> N >> K)) {
             throw std::runtime_error("Failed to read N and K from input file!");
         }
@@ -61,6 +61,20 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error: " << e.what() << '\n';
         return -1;
     }
+
+    auto main_algorithm_task = [&processable_dates, &movable_dates, &N, &K]() {
+        for (int i = 0; i < N + K; ++i) {
+            // creates a copy of the returned date on the heap. Maybe it would be better to modify the implementation 
+            // of the ProcessableDates class so that it doesn't return a Date by value?
+            std::unique_ptr<Date> date = std::make_unique<Date>(processable_dates.getMinimumDate()); 
+            int result = consumer_ptr(std::move(date)); 
+
+            Date nextDate = movable_dates[i];
+            processable_dates.addDate(nextDate);
+        }
+    };
+
+    run_timed_task("Date processing", main_algorithm_task);
     
     return 0;
 }
