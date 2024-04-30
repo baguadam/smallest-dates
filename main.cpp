@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
             std::unique_ptr<Date> date = std::make_unique<Date>(processable_dates.getMinimumDate()); 
             int result = consumer_ptr(std::move(date)); 
 
-            Date nextDate = movable_dates[i];
+            Date nextDate = movable_dates[i % (N + K)];
             processable_dates.addDate(nextDate);
         }
     };
