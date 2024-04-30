@@ -1,43 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <queue>
 #include "./headers/date.h"
 #include "./headers/timed_task.h"
-
-// std::priority_queue is chosen for the implementation, because it's important to access and delete
-// the element effienetly and for this purpose it's a good choise as retrieving the minimum element is O(1) and 
-// removing it is O(logN) as well as inserting a new one
-class ProcessableDates {
-private:
-    std::priority_queue<Date, std::vector<Date>, std::greater<Date>> minHeap;
-
-public:
-    ProcessableDates() {}
-
-    void addDate(const Date& date) {
-        minHeap.push(date);
-    }
-
-    Date getMinimumDate() {
-        if (minHeap.empty()) {
-            throw std::out_of_range("No date to retrieve!");
-        }
-
-        Date minDate = minHeap.top();
-        minHeap.pop();
-        return minDate;
-    }
-
-    bool isEmmpty() const {
-        return minHeap.empty();
-    } 
-
-    int size() const {
-        return minHeap.size();
-    }
-};
- 
+#include "./headers/processable_dates.h"
 
 int main(int argc, char* argv[]) {
     // if less or more than 1 argument
