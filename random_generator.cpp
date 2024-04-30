@@ -41,7 +41,6 @@ int main(int argc, char *argv[]) {
                 return -1;
             }
             printGeneratedNumbers(N, K, file);
-            file.close();
         }
     } else {
         std::cerr << "The given number of parameters must be 2 or 3! \n";
