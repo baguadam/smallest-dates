@@ -14,7 +14,7 @@ int generateRandomNumber(const int min, const int max) {
 }
 
 std::unique_ptr<Date> createDate(const int year, const int month, const int day) {
-    std::unique_ptr<Date> date(new Date(year, month, day));
+    std::unique_ptr<Date> date = std::make_unique<Date>(year, month, day);
     if (date && date->isDateCorrect()) {
         return date;  
     } else {
@@ -30,7 +30,7 @@ std::unique_ptr<Date> createRandomDateBetween(Date const* min, Date const* max) 
         int random_day = generateRandomNumber(min->getDay(), max->getDay());
 
         try {
-            std::unique_ptr<Date> date(new Date(random_year, random_month, random_day));
+            std::unique_ptr<Date> date = createDate(random_year, random_month, random_day);
             return date;
         } catch (const bad_date&) {
             ++try_count;
