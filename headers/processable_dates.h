@@ -15,11 +15,9 @@ private:
     std::priority_queue<Date, std::vector<Date>, std::greater<Date>> minHeap;
 
 public:
-    ProcessableDates();
-
-    void addDate(const Date&);
+    void addDate(const Date);
     Date getMinimumDate();
-    bool isEmmpty() const;
+    bool isEmpty() const;
     int size() const;
 };
 

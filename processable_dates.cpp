@@ -1,8 +1,6 @@
 #include "./headers/processable_dates.h"
 
-ProcessableDates::ProcessableDates() {}
-
-void ProcessableDates::addDate(const Date& date) {
+void ProcessableDates::addDate(const Date date) {
     minHeap.push(date);
 }
 
@@ -16,7 +14,7 @@ Date ProcessableDates::getMinimumDate() {
     return minDate;
 }
 
-bool ProcessableDates::isEmmpty() const {
+bool ProcessableDates::isEmpty() const {
     return minHeap.empty();
 }
 
