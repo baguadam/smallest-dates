@@ -64,13 +64,10 @@ int main(int argc, char* argv[]) {
 
     auto main_algorithm_task = [&processable_dates, &movable_dates, &N, &K]() {
         for (int i = 0; i < N + K; ++i) {
-            // creates a copy of the returned date on the heap. Maybe it would be better to modify the implementation 
-            // of the ProcessableDates class so that it doesn't return a Date by value?
-            std::unique_ptr<Date> date = std::make_unique<Date>(processable_dates.getMinimumDate()); 
+            std::unique_ptr<Date> date = processable_dates.extractMinimumDate();
             int result = consumer_ptr(std::move(date)); 
 
-            Date nextDate = movable_dates[i % (N + K)];
-            processable_dates.addDate(nextDate);
+            processable_dates.addDate(std::move(movable_dates[i % K]));
         }
     };
 

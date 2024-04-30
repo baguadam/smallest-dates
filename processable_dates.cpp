@@ -4,12 +4,12 @@ void ProcessableDates::addDate(const Date date) {
     minHeap.push(date);
 }
 
-Date ProcessableDates::getMinimumDate() {
+std::unique_ptr<Date> ProcessableDates::extractMinimumDate() {
     if (minHeap.empty()) {
         throw std::out_of_range("No date to retrieve!");
     }
 
-    Date minDate = minHeap.top();
+    std::unique_ptr<Date> minDate = std::make_unique<Date>(minHeap.top());
     minHeap.pop();
     return minDate;
 }

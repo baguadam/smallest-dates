@@ -16,7 +16,7 @@ private:
 
 public:
     void addDate(const Date);
-    Date getMinimumDate();
+    std::unique_ptr<Date> extractMinimumDate();
     bool isEmpty() const;
     int size() const;
 };
