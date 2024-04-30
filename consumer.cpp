@@ -1,5 +1,4 @@
-#include <iostream>
-#include "./headers/date.h"
+#include "./headers/consumer.h"
 
 int compareDates(const Date& date1, const Date& date2) {
     if (date1 == date2) {

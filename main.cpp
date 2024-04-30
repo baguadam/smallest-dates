@@ -3,6 +3,9 @@
 #include "./headers/date.h"
 #include "./headers/timed_task.h"
 #include "./headers/processable_dates.h"
+#include "./headers/consumer.h"
+
+int (*consumer_ptr)(std::unique_ptr<Date>) = consume;
 
 int main(int argc, char* argv[]) {
     // if less or more than 1 argument
